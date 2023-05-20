@@ -9,6 +9,10 @@ class Article extends Model
 {
     use HasFactory;
 
+    // protected $attributes = [
+    //     'category_id' => null
+    // ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

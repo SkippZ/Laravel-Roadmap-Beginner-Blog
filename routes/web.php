@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,19 @@ Route::delete('/article/{articleId}', [ArticleController::class, 'destroy'])->mi
 Route::get('/article/{articleId}/edit', [ArticleController::class, 'edit'])->name('edit_article');
 Route::put('/article/{articleId}', [ArticleController::class, 'update'])->name('update_article');
 
+Route::middleware('auth')->group(function () {
+    Route::resource('category', CategoryController::class, [
+        'names' => [
+            'index' => 'category',
+            'show' => 'show_category',
+            'store' => 'store_category',
+            'destroy' => 'destroy_category',
+            'edit' => 'edit_category',
+            'update' => 'update_category',
+        ]
+    ]);
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -32,4 +46,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

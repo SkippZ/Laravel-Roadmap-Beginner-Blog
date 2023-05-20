@@ -4,3 +4,7 @@
 @guest
     <a href="{{ route('login') }}">Login</a>
 @endguest
+@auth
+<a href="{{ route('category') }}">Category</a>
+<a href="{{ route('login') }}">Login</a>
+@endauth
