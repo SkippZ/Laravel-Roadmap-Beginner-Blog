@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ArticleController::class, 'index'])->name('home');
+Route::get('/article/{articleId}', [ArticleController::class, 'show'])->name('article');
+Route::post('/article', [ArticleController::class, 'store'])->middleware('auth')->name('store_article');
+Route::delete('/article/{articleId}', [ArticleController::class, 'destroy'])->middleware('auth')->name('destroy_article');
+Route::get('/article/{articleId}/edit', [ArticleController::class, 'edit'])->name('edit_article');
+Route::put('/article/{articleId}', [ArticleController::class, 'update'])->name('update_article');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
